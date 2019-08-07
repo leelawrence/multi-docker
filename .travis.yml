@@ -4,20 +4,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t leelawrence/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t pegleglee/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true leelawrence/react-test npm test
+  - docker run -e CI=true pegleglee/react-test npm test
 
 after_success:
-  - docker build -t leelawrence/multi-client ./client
-  - docker build -t leelawrence/multi-nginx ./nginx
-  - docker build -t leelawrence/multi-server ./server
-  - docker build -t leelawrence/multi-worker ./worker
+  - docker build -t pegleglee/multi-client ./client
+  - docker build -t pegleglee/multi-nginx ./nginx
+  - docker build -t pegleglee/multi-server ./server
+  - docker build -t pegleglee/multi-worker ./worker
   # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u $"DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push leelawrence/multi-client
-  - docker push leelawrence/multi-nginx
-  - docker push leelawrence/multi-server
-  - docker push leelawrence/multi-worker
+  - docker push pegleglee/multi-client
+  - docker push pegleglee/multi-nginx
+  - docker push pegleglee/multi-server
+  - docker push pegleglee/multi-worker
